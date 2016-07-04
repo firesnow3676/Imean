@@ -1,0 +1,122 @@
+body {
+  style.css
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+h1{
+  text-align: center;
+  font-size:18px;
+  height: 50px;
+  line-height: 50px;
+  color:#555;
+  width:100%;
+  margin: 0;
+
+}
+h2{
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  font-size:14px;
+  color: #555;
+  height: 30px;
+  line-height: 30px;
+
+
+}
+.name-box{
+  display: block;
+  width: 700px;
+  margin: 50px auto;
+
+}
+#username{
+  height: 40px;
+  width: 300px;
+  margin: auto;
+
+}
+#name-btn{
+  width: 100px;
+  height: 40px;
+  background-color: #00B7FF;
+  color:#fff;
+  line-height: 40px;
+  text-align: center;
+  margin-top:30px ;
+  cursor: pointer;
+}
+
+.chat-box{
+  margin:30px auto;
+  width: 500px;
+  height: 600px;
+  display:none;
+}
+
+.chat-record{
+  border: 1px solid #ccc;
+  width: 500px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 450px;
+  width: 500px;
+}
+.chat-input-box{
+  border: 1px solid #ccc;
+  overflow: hidden;
+
+}
+
+.chat-input{
+  height: 40px;
+  margin: 5px;
+  padding: 5px;
+  width:380px;
+  float: left;
+  box-sizing:border-box;
+  
+}
+
+.chat-btn{
+  width: 100px;
+  height: 30px;
+  margin: 10px 0;
+  padding: 0;
+  border: none;
+  background-color: #00B7FF;
+  color: #fff;
+  float: left;
+}
+
+.msg-box{
+  border-bottom: 1px solid #ccc;
+  padding-left: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.msg-header{
+  height: 20px;
+  overflow: hidden;
+}
+.msg-name{
+  height: 20px;
+  float: left;
+  margin-right: 30px;
+}
+.msg-time{
+  color: #00B7FF;
+  font-size:14px;
+  float: left;
+  line-height: 20px;
+}
+.msg-content{
+  line-height: 18px;
+  font-size:16px;
+}

@@ -1,0 +1,110 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    meta(name="viewport",content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no")
+
+  body
+    .header
+      h1 #{title}
+      h2 by Jason Young &copy;ClouDefiner
+    #name-box.name-box
+      h3 请输入你的用户名(随便写)
+      input#username
+      #name-btn 确定
+    #chat-box.chat-box
+      #chat-record.chat-record
+      .chat-input-box
+        form
+          input#chat.chat-input(name='chat')
+          button(type='submit')#chat-btn.chat-btn 发送
+
+    script(type='text/javascript').
+      var usernameBox=document.getElementById('name-box');
+      var chatBox=document.getElementById('chat-box');
+      var username;
+      document.getElementById('name-btn').addEventListener('click', function () {
+        var txt=document.getElementById('username').value.trim();
+        console.log(txt);
+        if(!txt){
+          alert('请输入用户名');
+        }else{
+          var rs=confirm('确认将'+txt+'作为你的用户名吗?');
+          if(rs){
+            username=txt;
+            usernameBox.style.display='none';
+            chatBox.style.display='block';
+          }
+        }
+
+      });
+
+      if(window.WebSocket!=undefined) {
+        var ws = new WebSocket('ws://192.168.1.105:3000');
+
+        var btn = document.getElementById('chat-btn').addEventListener('click', function (e) {
+          e.preventDefault();
+
+          msgTxt=document.getElementById('chat').value.trim();
+          document.getElementById('chat').value='';
+          if(!msgTxt){
+            alert('别啥也不说');
+          }else{
+            console.log(msgTxt);
+            var msgJson = {
+              username: username,
+              time: Date.now(),
+              content: msgTxt
+            };
+            var msg = JSON.stringify(msgJson);
+            ws.send(msg);
+          }
+          return false;
+
+        })
+        ws.onopen = function (event) {
+          console.log('websocket connected');
+        }
+
+        ws.onmessage = function (event) {
+          console.log('message come from server');
+          console.log(event.data);
+          var msg=JSON.parse(event.data);
+          addMsgRecord(msg.username,msg.time,msg.content);
+        }
+        ws.onclose=function(){
+          console.log('websocket close');
+        }
+
+
+      }
+
+      function addMsgRecord(nameData,timestamp,msgData){
+        var record=document.getElementById('chat-record');
+        var box=document.createElement('div');
+        box.classList.add('msg-box');
+        var header=document.createElement('div');
+        header.classList.add('msg-header');
+        var name=document.createElement('div');
+        name.classList.add('msg-name');
+        var time=document.createElement('div')
+        time.classList.add('msg-time');
+        var msg=document.createElement('div');
+        msg.classList.add('msg-content');
+        name.innerText=nameData;
+        var m=new Date(timestamp).getMonth();
+        var d=new Date(timestamp).getDate();
+        var h=new Date(timestamp).getHours();
+        var mi=new Date(timestamp).getMinutes();
+        time.innerText=(m+1)+'/'+d+' '+h+':'+mi;
+        msg.innerText=msgData;
+        header.appendChild(name);
+        header.appendChild(time);
+        box.appendChild(header);
+        box.appendChild(msg);
+        record.appendChild(box);
+        window.scrollTo(0,document.body.scrollHeight);
+      }
+
+
